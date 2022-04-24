@@ -13,11 +13,14 @@ import (
 
 func main() {
 	local := flag.String("local", ":2080", "proxy listen address")
-	remote := flag.String("remote", "port.loye.com:1443", "remote proxy address")
-	password := flag.String("password", "1qaz@WSX", "password")
+	remote := flag.String("remote", "127.0.0.1:1443", "remote proxy address")
+	password := flag.String("password", "12345678", "password")
 	flag.Parse()
 	encryptionSeed := sha512.Sum512([]byte(*password))
-	log.Println("start listening at address", *local, ", forwarding to remote proxy", *remote)
+	log.Println("Start listening...")
+	log.Println("address      :", *local)
+	log.Println("remote proxy :", *remote)
+	log.Println("password     :", *password)
 
 	err := listen(*local, *remote, &encryptionSeed)
 	if err != nil {
